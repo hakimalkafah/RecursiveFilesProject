@@ -3,17 +3,34 @@ import java.io.File;
 public class RecursiveFileReader {
 
 	public static void main(String[] args) {
+		Scanner kbrd = new Scanner(System.in);
+		String dir;
+		String findFile;
+		int numOfFiles;
+		
+		System.out.println("Please enter a directory: ");
+		dir = kbrd.nextLine();
+		
+		System.out.println("Please enter file to search for in the directory: ");
+		findFile = kbrd.nextLine();
 		
 
+		File inputFile = new File(dir);
+
+		
+		displayFiles (inputFile);
+		System.out.println("There are: " + countFiles(inputFile) + "files in provided directory.");
+		
 	}
+	
 	
 	void displayFiles (File file)
 	{
-		for(File fileEntry : file.listFiles())
+		for(File fileEntry : file.listFiles())    // Loops through all files and directories in provided directory
 		{
-			if(fileEntry.isFile())
-				System.out.print(file.getName());
-			else 
+			if(fileEntry.isFile())    // If file is a file then print it
+				System.out.print(fileEntry.getName());
+			else 			  // If file is a directory then make a recursive call with inner directory
 				displayFiles(fileEntry);
 		}
 	}
