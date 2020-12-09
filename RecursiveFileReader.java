@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.Scanner;
 
 public class RecursiveFileReader {
 
@@ -19,23 +20,23 @@ public class RecursiveFileReader {
 
 		
 		displayFiles (inputFile);
-		System.out.println("There are: " + countFiles(inputFile) + "files in provided directory.");
+		System.out.println("\nThere are: " + countFiles(inputFile) + " files in provided directory.");
 		
 	}
 	
 	
-	void displayFiles (File file)
+	static void displayFiles (File file)
 	{
 		for(File fileEntry : file.listFiles())    // Loops through all files and directories in provided directory
 		{
 			if(fileEntry.isFile())    // If file is a file then print it
-				System.out.print(fileEntry.getName());
+				System.out.println(fileEntry.getName());
 			else 			  // If file is a directory then make a recursive call with inner directory
 				displayFiles(fileEntry);
 		}
 	}
 
-	int countFiles(File file) {
+	static int countFiles(File file) {
 		File[] files = file.listFiles(); // Creates an array of files and stores the result of listfiles() into the File array
 		int counter = 0; //Counter for the number of files there are in the directory.
 		
