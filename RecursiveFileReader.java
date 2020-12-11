@@ -4,24 +4,37 @@ import java.util.Scanner;
 public class RecursiveFileReader {
 
 	public static void main(String[] args) {
-		Scanner kbrd = new Scanner(System.in);
-		String dir;
-		String findFile;
-		int numOfFiles;
+		Scanner fileInput = new Scanner(System.in);
 		
-		System.out.println("Please enter a directory: ");
-		dir = kbrd.nextLine();
+		System.out.print("PLease Enter a valid Directory: ");
+		String fileDirectory = fileInput.nextLine();
 		
-		System.out.println("Please enter file to search for in the directory: ");
-		findFile = kbrd.nextLine();
+		File file = new File(fileDirectory);
 		
-
-		File inputFile = new File(dir);
-
+		if(file.isDirectory()) {
+			System.out.println("Number of Files: " + countFiles(file) + "\n");
+			System.out.println("File Names:");
+			displayFiles(file);
+		} else {
+			System.out.println(fileDirectory + " is not a valid Directory.");
+		}
 		
-		displayFiles (inputFile);
-		System.out.println("\nThere are: " + countFiles(inputFile) + " files in provided directory.");
+		System.out.println();
+		System.out.println("Please enter a directory and a file you'd like\nto"
+				+ " search for: ");
+		System.out.print("Enter directory: ");
+		File directory = new File(fileInput.nextLine());
 		
+		System.out.print("Enter file name: ");
+		File fileName = new File(fileInput.nextLine());
+		System.out.println("Searching for file: ");
+		
+		if(fileFound(directory,fileName) == true) {
+			System.out.println("Found: " + fileName);
+		} else {
+			System.out.println("Could not locate: " + fileName);
+			
+		}
 	}
 	
 	
@@ -48,5 +61,22 @@ public class RecursiveFileReader {
 				counter++; //Increments counter by 1.
 		}
 		return counter; //Returns the value stored inside counter.
+	}
+	
+	private static boolean fileFound(File file, File findFile) {
+		if(file.isDirectory()) {
+			File[] files = file.listFiles();
+			for(File f : files) {
+				boolean isFile = fileFound(f,findFile);
+				if (isFile) {
+					return true;
+				}
+			}
+		} else {
+			if(findFile.isFile()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
