@@ -12,7 +12,7 @@ public class RecursiveFileReader {
 		File file = new File(fileDirectory);
 		
 		if(file.isDirectory()) {
-			System.out.println("Number of Files: " + countFiles(file) + "\n");
+			System.out.println("\nNumber of Files: " + countFiles(file) + "\n");
 			System.out.println("File Names:");
 			displayFiles(file);
 		} else {
@@ -20,21 +20,28 @@ public class RecursiveFileReader {
 		}
 		
 		System.out.println();
-		System.out.println("Please enter a directory and a file you'd like\nto"
+		System.out.println("\nPlease enter a directory and a file you'd like\nto"
 				+ " search for: ");
-		System.out.print("Enter directory: ");
+		System.out.print("\nEnter directory: ");
 		File directory = new File(fileInput.nextLine());
 		
-		System.out.print("Enter file name: ");
+		if(!(directory.isDirectory())) 
+			System.out.println(fileDirectory + " is not a valid Directory.");
+		
+		
+		System.out.print("\nEnter file name: ");
 		File fileName = new File(fileInput.nextLine());
-		System.out.println("Searching for file: ");
+			
+			
+		System.out.println("\nSearching for file... ");
 		
 		if(fileFound(directory,fileName) == true) {
-			System.out.println("Found: " + fileName);
+			System.out.println("\nFound: " + fileName);
 		} else {
-			System.out.println("Could not locate: " + fileName);
+			System.out.println("\nCould not locate: " + fileName);
 			
 		}
+		
 	}
 	
 	
@@ -64,19 +71,38 @@ public class RecursiveFileReader {
 	}
 	
 	private static boolean fileFound(File file, File findFile) {
-		if(file.isDirectory()) {
-			File[] files = file.listFiles();
-			for(File f : files) {
-				boolean isFile = fileFound(f,findFile);
-				if (isFile) {
+		/*
+		boolean foundIt = false;
+		for(File f : file.listFiles()) 
+		{
+			if(f.isDirectory())
+				foundIt = fileFound(f,findFile);                // Doesnt work at all 
+			
+			else {
+				if(f.getName().equals(findFile.getName()))
+					foundIt = true;
+			}
+				
+		}
+		return foundIt;
+		
+		*/
+                                                              // Works a lil bit
+		for(File f : file.listFiles()) 
+		{
+			if(f.isDirectory())
+				return fileFound(f,findFile);
+			
+			else {
+				if(f.getName().equals(findFile.getName()))
 					return true;
-				}
 			}
-		} else {
-			if(findFile.isFile()) {
-				return true;
-			}
+				
 		}
 		return false;
+		
 	}
 }
+
+
+//  C:\Users\hakim\Desktop\CIS-141
