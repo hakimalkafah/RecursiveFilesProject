@@ -69,55 +69,25 @@ public class RecursiveFileReader {
 		}
 		return counter; //Returns the value stored inside counter.
 	}
-	private static boolean fileFound(File file, File findFile) {
-		if(file.getName().equals(findFile.getName())) {
+	
+	
+	static boolean fileFound(File file, File findFile) {
+		
+		if(file.getName().equals(findFile.getName())) 
 			return true;
-		}
+		
 		if(file.isDirectory()) {
+			
 			File[] files = file.listFiles();
+			
 			for(File f : files) {
-				System.out.println(f.getName());		
-				if(fileFound(f,findFile)) {
+				
+				if(fileFound(f,findFile)) 
 					return true;
-				}
 			}
 		}
 		return false;
 	}
-	/*
-	private static boolean fileFound(File file, File findFile) {
-		/*
-		boolean foundIt = false;
-		for(File f : file.listFiles()) 
-		{
-			if(f.isDirectory())
-				foundIt = fileFound(f,findFile);                // Doesnt work at all 
-			
-			else {
-				if(f.getName().equals(findFile.getName()))
-					foundIt = true;
-			}
-				
-		}
-		return foundIt;
-		
-		
-                                                              // Works a lil bit
-		for(File f : file.listFiles()) 
-		{
-			if(f.isDirectory())
-				return fileFound(f,findFile);
-			
-			else {
-				if(f.getName().equals(findFile.getName()))
-					return true;
-			}
-				
-		}
-		return false;
-		
-	}
-	*/
 }
 
 
