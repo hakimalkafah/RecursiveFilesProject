@@ -79,7 +79,16 @@ public class RecursiveFileReader {
 			return true;
 		}
 		
-		if(file.isDirectory()) {
+		if(file.isDirectory()) { //Checks if file is a directory
+			if(findFile.isDirectory()) { //Checks if file we are searching for is also a directory
+				File[] files = file.listFiles(); //Makes an array of files and stores the result of file.listFiles() in the array.
+				
+				for(File f : files) { //Sets f equal to current value in the array.
+					if(fileFound(f,findFile)) { //Recursive step.
+						return true; // returns true.
+					}
+				}
+			}
 			
 			File[] files = file.listFiles();   // Stores a list of all the files in the passed in directory in an array
 			
@@ -89,6 +98,7 @@ public class RecursiveFileReader {
 					return true; 
 			}
 		}
+		
 		return false;    // If the file isn't found in this directory, the method returns false;
 	}
 }
