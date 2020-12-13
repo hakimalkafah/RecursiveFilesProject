@@ -50,24 +50,27 @@ public class RecursiveFileReader {
 	{
 		for(File fileEntry : file.listFiles())    // Loops through all files and directories in provided directory
 		{
-			if(fileEntry.isFile())    // If file is a file then print it
-				System.out.println(fileEntry.getName());
-			else 			  // If file is a directory then make a recursive call with inner directory
+			System.out.println(fileEntry.getName());  // prints file or directory
+			
+			if(fileEntry.isDirectory())   // if file is a directory, it calls displayFiles recursively
 				displayFiles(fileEntry);
 		}
 	}
 
+	
 	static int countFiles(File file) {
 		File[] files = file.listFiles(); // Creates an array of files and stores the result of listfiles() into the File array
 		int counter = 0; //Counter for the number of files there are in the directory.
 		
-		for(File c : files) { //Cycles through the files array an stores the current contents of the array in File object c.
+		
+		for(File c : files) {  //Cycles through the files array an stores the current contents of the array in File object c.
+			counter ++;  //Increments counter by 1.
+			
 			if(c.isDirectory()) //Checks to see if c is a valid directory
 				//If it is, then 1 is added to the counter and a recursive step happens where it goes further into the sub-directories
 				counter += countFiles(c);  
-			else
-				counter++; //Increments counter by 1.
 		}
+		
 		return counter; //Returns the value stored inside counter.
 	}
 	
@@ -92,6 +95,7 @@ public class RecursiveFileReader {
 			
 			File[] files = file.listFiles();   // Stores a list of all the files in the passed in directory in an array
 			
+			
 			for(File f : files) {    //Cycles through the files array an stores the current contents of the array in File object f.
 				
 				if(fileFound(f,findFile))  // runs every file and/or directory in the array through findFile() recursively 
@@ -102,3 +106,5 @@ public class RecursiveFileReader {
 		return false;    // If the file isn't found in this directory, the method returns false;
 	}
 }
+
+
