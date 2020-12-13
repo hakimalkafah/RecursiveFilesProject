@@ -6,35 +6,36 @@ public class RecursiveFileReader {
 	public static void main(String[] args) {
 		Scanner fileInput = new Scanner(System.in);
 		
-		System.out.print("PLease Enter a valid Directory: ");
+		System.out.print("Please Enter a valid Directory: ");   // Asks user for a valid directory
 		String fileDirectory = fileInput.nextLine();
 		
 		File file = new File(fileDirectory);
 		
-		if(file.isDirectory()) {
-			System.out.println("\nNumber of Files: " + countFiles(file) + "\n");
+		if(file.isDirectory()) {  // Checks if input is a valid directory
+			System.out.println("\nNumber of Files: " + countFiles(file) + "\n");     // displays number of files in given directory
 			System.out.println("File Names:");
-			displayFiles(file);
+			displayFiles(file);      // Displays all of the file names in given directory 
 		} else {
 			System.out.println(fileDirectory + " is not a valid Directory.");
 		}
 		
-		System.out.println();
+		System.out.println();     
 		System.out.println("\nPlease enter a directory and a file you'd like\nto"
 				+ " search for: ");
-		System.out.print("\nEnter directory: ");
+		System.out.print("\nEnter directory: ");      // User enters a directory where he wants a specific file found in
 		File directory = new File(fileInput.nextLine());
 		
-		if(!(directory.isDirectory())) 
+		if(!(directory.isDirectory()))   // Error message if directory isn't entered
 			System.out.println(fileDirectory + " is not a valid Directory.");
 		
 		
-		System.out.print("\nEnter file name: ");
+		System.out.print("\nEnter file name: ");        // user enters file name they want to find
 		File fileName = new File(fileInput.nextLine());
 			
 			
 		System.out.println("\nSearching for file... ");
 		
+		// Display if entered file is found or not. 
 		if(fileFound(directory,fileName) == true) {
 			System.out.println("\nFound: " + fileName);
 		} else {
@@ -73,22 +74,21 @@ public class RecursiveFileReader {
 	
 	static boolean fileFound(File file, File findFile) {
 		
-		if(file.getName().equals(findFile.getName())) 
+		if(file.getName().equals(findFile.getName())) {   // compares the file given by user to file passed in as perametter 
+			System.out.println("\n" + file.getPath());	  // Displays file's full path (For extra credit)
 			return true;
+		}
 		
 		if(file.isDirectory()) {
 			
-			File[] files = file.listFiles();
+			File[] files = file.listFiles();   // Stores a list of all the files in the passed in directory in an array
 			
-			for(File f : files) {
+			for(File f : files) {    //Cycles through the files array an stores the current contents of the array in File object f.
 				
-				if(fileFound(f,findFile)) 
-					return true;
+				if(fileFound(f,findFile))  // runs every file and/or directory in the array through findFile() recursively 
+					return true; 
 			}
 		}
-		return false;
+		return false;    // If the file isn't found in this directory, the method returns false;
 	}
 }
-
-
-//  C:\Users\hakim\Desktop\CIS-141
