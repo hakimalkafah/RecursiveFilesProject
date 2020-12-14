@@ -20,7 +20,7 @@ public class RecursiveFileReader {
 		}
 		
 		System.out.println();     
-		System.out.println("\nPlease enter a directory and a file you'd like\nto"
+		System.out.println("\nPlease enter a directory and a file/directory you'd like\nto"
 				+ " search for: ");
 		System.out.print("\nEnter directory: ");      // User enters a directory where he wants a specific file found in
 		File directory = new File(fileInput.nextLine());
@@ -29,7 +29,7 @@ public class RecursiveFileReader {
 			System.out.println(fileDirectory + " is not a valid Directory.");
 		
 		
-		System.out.print("\nEnter file name: ");        // user enters file name they want to find
+		System.out.print("\nEnter file/directory name: ");        // user enters file name they want to find
 		File fileName = new File(fileInput.nextLine());
 			
 			
