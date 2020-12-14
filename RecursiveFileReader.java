@@ -17,6 +17,7 @@ public class RecursiveFileReader {
 			displayFiles(file);      // Displays all of the file names in given directory 
 		} else {
 			System.out.println(fileDirectory + " is not a valid Directory.");
+			System.out.close();
 		}
 		
 		System.out.println();     
@@ -25,8 +26,10 @@ public class RecursiveFileReader {
 		System.out.print("\nEnter directory: ");      // User enters a directory where he wants a specific file found in
 		File directory = new File(fileInput.nextLine());
 		
-		if(!(directory.isDirectory()))   // Error message if directory isn't entered
+		if(!(directory.isDirectory()))  { // Error message if directory isn't entered
 			System.out.println(fileDirectory + " is not a valid Directory.");
+			System.out.close();
+		}
 		
 		
 		System.out.print("\nEnter file name: ");        // user enters file name they want to find
@@ -82,15 +85,17 @@ public class RecursiveFileReader {
 			return true;
 		}
 		
-		File[] files = file.listFiles(); //Makes an array of files and stores the result of file.listFiles() in the array.
-		
-		for(File f : files) { //Sets f equal to current value in the array.
-			if(fileFound(f,findFile)) { //Recursive step.
-				return true; // returns true.
+			
+		if(file.isDirectory()) {    // Checks if file is a directory
+			File[] files = file.listFiles();  // Creates an array of files and stores the result of listfiles() into the File array
+			
+			for(File f : files) {  //Cycles through the files array an stores the current contents of the array in File object f.
+				if(fileFound(f,findFile))  // Makes a recursive call and send in the directory.
+					return true;
 			}
 		}
-		return false;    // If the file isn't found in this directory, the method returns false;
+		
+		return false;
 	}
 }
-
 
