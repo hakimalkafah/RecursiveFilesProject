@@ -82,13 +82,26 @@ public class RecursiveFileReader {
 			return true;
 		}
 		
-		File[] files = file.listFiles(); //Makes an array of files and stores the result of file.listFiles() in the array.
-		
-		for(File f : files) { //Sets f equal to current value in the array.
-			if(fileFound(f,findFile)) { //Recursive step.
-				return true; // returns true.
+		if(file.isDirectory()) {
+			if(findFile.isDirectory()) {
+				File[] files = file.listFiles();
+				
+				for(File f : files) {
+					if(fileFound(f,findFile)) {
+						return true;
+					}
+				}
+			}
+			
+			File[] files = file.listFiles();   // Stores a list of all the files in the passed in directory in an array
+			
+			for(File f : files) {    //Cycles through the files array an stores the current contents of the array in File object f.
+				
+				if(fileFound(f,findFile))  // runs every file and/or directory in the array through findFile() recursively 
+					return true; 
 			}
 		}
+		
 		return false;    // If the file isn't found in this directory, the method returns false;
 	}
 }
